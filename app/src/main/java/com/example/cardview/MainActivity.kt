@@ -1,5 +1,6 @@
 package com.example.cardview
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -13,12 +14,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ClickItemContactListener {
     private val rvList: RecyclerView by lazy {
         findViewById<RecyclerView>(R.id.rv_list)
 
     }
-    private val adapter = ContactAdapter()
+    private val adapter = ContactAdapter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         adapter.updateList(
             arrayListOf(
                 Contact("Natalia Ramos", "(82) 9999-3595", "img.png"),
-                Contact("Natalia Ramos", "(82) 9999-3595", "img.png")
+                Contact("Jose Almeida", "(82) 9999-2314", "img.png")
             )
         )
     }
@@ -75,5 +76,10 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun clickItemContact(contact: Contact) {
+        val intent = Intent(this, DetailActivity::class.java)
+        startActivity(intent)
     }
 }
